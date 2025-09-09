@@ -6,15 +6,31 @@
 1. Install dependencies
 
    ```bash
-   npm install
+      npm install
    ```
 
-2. Start the app
+2. Instale Globalmente o Expo
 
    ```bash
-   npx expo start
+      npm install -g expo-cli
    ```
-   
+
+3. Start the app
+
+   ```bash
+      npx expo start
+   ```
+## To builds
+
+1. Instalar o EAS CLI
+   ```bash
+      npm install -g eas-cli
+   ```
+
+2. Login no expo
+   ```bash
+      eas login
+   ```
 ## Get a fresh project
 
 When you're ready, run:
