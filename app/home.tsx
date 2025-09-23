@@ -4,12 +4,15 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
+  Dimensions
 } from 'react-native';
 
-import HeaderHome from './components/HeaderHome';
-import ExploreSection from './components/ExploreSection';
-import FunctionsSection from './components/FunctionsSection';
-import DestinationsSection from './components/DestinationsSection';
+import HeaderHome from './components/HeaderHome/HeaderHome';
+import ExploreSection from './components/ExploreSection/ExploreSection';
+import FunctionsSection from './components/FunctionsSection/FunctionsSection';
+import DestinationsSection from './components/DestinationsSection/DestinationsSection';
+
+export const { width } = Dimensions.get('window');
 
 const Home = () => {
   return (

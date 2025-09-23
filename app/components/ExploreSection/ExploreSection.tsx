@@ -3,11 +3,10 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
   ImageBackground,
 } from 'react-native';
 
-const { width } = Dimensions.get('window');
+import {styles} from '@/app/components/ExploreSection/styles'
 
 const ExploreSection = () => {
   return (
@@ -27,30 +26,5 @@ const ExploreSection = () => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  backgroundImage: {
-    width: '100%',
-    justifyContent: 'center',
-  },
-  overlay: {
-    backgroundColor: 'rgba(0,0,0,0.4)', // camada escura para melhorar leitura
-    paddingHorizontal: width * 0.05,
-    paddingBottom: 30,
-    paddingTop: 10,
-  },
-  exploreTitle: {
-    color: 'white',
-    fontSize: width * 0.06,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  exploreSubtitle: {
-    color: 'white',
-    fontSize: width * 0.035,
-    opacity: 0.9,
-    lineHeight: 20,
-  },
-});
 
 export default ExploreSection;
