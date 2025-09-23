@@ -1,5 +1,5 @@
+import { width } from "@/app/screens/Home/home";
 import { StyleSheet } from "react-native";
-import { width } from "@/app/home";
 
 export const styles = StyleSheet.create({
   functionsSection: {

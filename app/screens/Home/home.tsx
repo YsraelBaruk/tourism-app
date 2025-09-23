@@ -1,16 +1,16 @@
 import React from 'react';
 import {
+  Dimensions,
   SafeAreaView,
   ScrollView,
   StatusBar,
-  StyleSheet,
-  Dimensions
+  StyleSheet
 } from 'react-native';
 
-import HeaderHome from './components/HeaderHome/HeaderHome';
-import ExploreSection from './components/ExploreSection/ExploreSection';
-import FunctionsSection from './components/FunctionsSection/FunctionsSection';
-import DestinationsSection from './components/DestinationsSection/DestinationsSection';
+import DestinationsSection from '../../components/DestinationsSection';
+import ExploreSection from '../../components/ExploreSection';
+import FunctionsSection from '../../components/FunctionsSection';
+import HeaderHome from '../../components/HeaderHome';
 
 export const { width } = Dimensions.get('window');
 

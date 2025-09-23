@@ -1,28 +1,11 @@
-// app/index.tsx
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+import { SafeAreaView, StyleSheet } from "react-native";
+import Login from "@/app/screens/(auth)/login/index";
 
 export default function Index() {
-  const router = useRouter();
-
   return (
-    <View style={styles.container}>
-      
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push("/login")}
-      >
-        <Text style={styles.buttonText}>Ir para Login</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push("/home")}
-      >
-        <Text style={styles.buttonText}>Home</Text>
-      </TouchableOpacity>
-
-    </View>
+    <SafeAreaView>
+      <Login />
+    </SafeAreaView>
   );
 }
 

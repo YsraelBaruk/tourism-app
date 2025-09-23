@@ -1,5 +1,5 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
-import { width } from "@/app/home";
+import { width } from "@/app/screens/Home/home";
+import { Platform, StatusBar, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   header: {

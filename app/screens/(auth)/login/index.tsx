@@ -1,8 +1,8 @@
 // app/login.tsx
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import {styles} from '@/app/screens/Login/styles'
+import { styles } from '@/app/screens/(auth)/login/styles';
 
 export default function Login() {
   const router = useRouter();
@@ -52,7 +52,7 @@ export default function Login() {
         {/* Texto de registro */}
         <View style={styles.registerContainer}>
           <Text style={styles.registerText}>Ainda não tem conta? </Text>
-          <TouchableOpacity onPress={() => router.push("/register")}>
+          <TouchableOpacity onPress={() => router.push("/screens/register")}>
             <Text style={styles.registerLink}>Cadastre-se</Text>
           </TouchableOpacity>
         </View>

@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    marginBottom:-30,
+    marginBottom: -30,
     color: "#3258A6",
   },
   logo: {
