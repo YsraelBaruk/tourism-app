@@ -30,7 +30,7 @@ export default function RegisterScreen() {
           {/* Card Visitante */}
           <TouchableOpacity
             style={styles.card}
-            onPress={() => router.push("/screens/(auth)/(register)/registerClient/index")}
+            onPress={() => router.push("/screens/(auth)/(register)/registerClient")}
           >
             <Ionicons name="person-circle-outline" size={40} color="#3258A6" />
             <Text style={styles.cardText}>Visitante{"\n"}(Usuário comum)</Text>
@@ -39,7 +39,7 @@ export default function RegisterScreen() {
           {/* Card Colaborador */}
           <TouchableOpacity
             style={styles.card}
-            onPress={() => router.push("/screens/(auth)/(register)/registerOwn/index")}
+            onPress={() => router.push("/screens/(auth)/(register)/registerClient")}
           >
             <Ionicons name="person-add-outline" size={40} color="#3258A6" />
             <Text style={styles.cardText}>

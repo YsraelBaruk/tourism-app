@@ -1,32 +1,37 @@
+`app\_components\destinationsSection\index.tsx: app\_components\destinationsSection\index.tsx:Invalid call at line 49: require(destination.image) `
+Apresentou esse erro
+
+Para esse arquivo index.tsx
+```
 import React from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
   Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
-import {styles} from '@/app/components/DestinationsSection/styles'
+import { styles } from '@/app/_components/destinationsSection/styles';
 
 const DestinationsSection = () => {
   const destinations = [
     {
       name: 'Sítio do Carroção',
-      image: 'https://via.placeholder.com/150x120/4CAF50/ffffff?text=Sítio+do+Carroção',
+      image: '@/assets/images/trips/image_1.png',
     },
-    {
-      name: 'Marcos Ribeiro',
-      image: 'https://via.placeholder.com/150x120/FF9800/ffffff?text=Marcos+Ribeiro',
-    },
-    {
-      name: 'Festa de São João',
-      image: 'https://via.placeholder.com/150x120/2196F3/ffffff?text=Festa+de+São+João',
-    },
-    {
-      name: 'Festa do Frango',
-      image: 'https://via.placeholder.com/150x120/9C27B0/ffffff?text=Festa+do+Frango',
-    },
+    // {
+    //   name: 'Marcos Ribeiro',
+    //   image: 'https://via.placeholder.com/150x120/FF9800/ffffff?text=Marcos+Ribeiro',
+    // },
+    // {
+    //   name: 'Festa de São João',
+    //   image: 'https://media.istockphoto.com/id/2162232303/pt/foto/sao-joao-celebration-in-bahia.jpg?s=612x612&w=0&k=20&c=B9fS8Ewzlqv4yK3KeDmOHW3p_U7Q5fAWKgDXhtDK1lk=',
+    // },
+    // {
+    //   name: 'Festa do Frango',
+    //   image: 'https://via.placeholder.com/150x120/9C27B0/ffffff?text=Festa+do+Frango',
+    // },
   ];
 
   return (
@@ -46,7 +51,7 @@ const DestinationsSection = () => {
         {destinations.map((destination, index ) => (
           <TouchableOpacity key={index} style={styles.destinationCard}>
             <Image
-              source={{uri: destination.image}}
+              source={require(destination.image)}
               style={styles.destinationImage}
             />
             <View style={styles.destinationInfo}>
@@ -67,3 +72,5 @@ const DestinationsSection = () => {
 };
 
 export default DestinationsSection;
+```
+

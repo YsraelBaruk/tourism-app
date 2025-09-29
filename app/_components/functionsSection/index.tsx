@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  View,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 
-import {styles} from '@/app/components/FunctionsSection/styles'
+import { styles } from '@/app/_components/functionsSection/styles';
 
 const FunctionsSection = () => {
   const functions = [

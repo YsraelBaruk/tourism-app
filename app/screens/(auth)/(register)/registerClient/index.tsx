@@ -62,7 +62,7 @@ export default function ClientRegister() {
         />
 
         {/* Botão Próximo */}
-        <TouchableOpacity style={styles.button} onPress={() => alert("Avançar para próxima etapa")}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push("/screens/(client)/home")}>
           <Text style={styles.buttonText}>Próximo</Text>
         </TouchableOpacity>
       </View>

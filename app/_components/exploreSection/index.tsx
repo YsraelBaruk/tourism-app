@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
   ImageBackground,
+  Text,
+  View
 } from 'react-native';
 
-import {styles} from '@/app/components/ExploreSection/styles'
+import { styles } from '@/app/_components/exploreSection/styles';
 
 const ExploreSection = () => {
   return (

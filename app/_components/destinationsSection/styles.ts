@@ -1,4 +1,4 @@
-import { width } from '@/app/screens/Home/home';
+import { width } from "@/app/screens/(client)/home/index";
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -7,6 +7,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: width * 0.05,
     paddingVertical: 25,
     flex: 1,
+  },
+  destinationCardGradient: {
+    flex: 1,
+    borderRadius: 12,  // igual ao seu card
+    overflow: 'hidden', // para que o gradiente respeite os cantos arredondados
   },
   destinationsHeader: {
     marginBottom: 20,
@@ -62,8 +67,12 @@ export const styles = StyleSheet.create({
   destinationName: {
     fontSize: width * 0.035,
     fontWeight: '500',
-    color: '#333',
+    color: '#fff',
     flex: 1,
+  },
+  destinationCity: {
+    fontSize: width * 0.03,
+    color: '#fff',
   },
   favoriteIcon: {
     width: 24,

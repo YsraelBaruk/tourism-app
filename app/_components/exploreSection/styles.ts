@@ -1,4 +1,4 @@
-import { width } from "@/app/screens/Home/home";
+import { width } from "@/app/screens/(client)/home/index";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({

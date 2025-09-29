@@ -1,17 +1,17 @@
 ; import { Stack } from "expo-router";
 import { Image } from 'react-native';
 
-export default function RegisterLayout() {
+export default function ClientLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }} >
       <Stack.Screen
-        name="choseOption"
+        name="DestinationsSection"
       />
       <Stack.Screen
-        name="registerClient"
+        name="ExploreSection"
       />
       <Stack.Screen
-        name="registerOwn"
+        name="FunctionsSection"
       />
     </Stack>
   );
