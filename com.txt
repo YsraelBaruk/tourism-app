@@ -1,3 +1,23 @@
+screens/
+    (auth)/
+    _layout.tsx
+        (register)/
+        _layout.tsx
+            choseOption/
+                index.tsx
+                styles.tsx
+            registerClient/
+                index.tsx
+                styles.tsx
+            registerOwn/
+                index.tsx
+                styles.tsx
+        login/
+            index.tsx
+            styles.tsx
+
+No meu 
+screens/(auth)/login/index
 // app/login.tsx
 import { useRouter } from "expo-router";
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -52,7 +72,7 @@ export default function Login() {
         {/* Texto de registro */}
         <View style={styles.registerContainer}>
           <Text style={styles.registerText}>Ainda não tem conta? </Text>
-          <TouchableOpacity onPress={() => router.push("/screens/(auth)/(register)/choseOption")} >
+          <TouchableOpacity onPress={() => router.push("/screens/(auth)/(register)/choseOption/index")}>
             <Text style={styles.registerLink}>Cadastre-se</Text>
           </TouchableOpacity>
         </View>
@@ -81,3 +101,40 @@ export default function Login() {
     </ScrollView>
   );
 }
+
+
+Veja aqui
+screens/(auth)/_layout.tsx
+
+import { Stack } from "expo-router";
+import { Image } from 'react-native';
+
+export default function AuthLayout() {
+  return (
+    <Stack>
+      <Stack.Screen
+        name="login/index"
+        options={{ title: "Login" }}
+      />
+      <Stack.Screen
+        name="screens/(auth)/(register)/choseOption/index"
+        options={{
+          headerTitle: () => (
+            <Image
+              source={require("@/assets/images/logo.png")}
+              style={{ width: 60, resizeMode: "contain" }}
+            />
+          ),
+          headerStyle: {
+            backgroundColor: "#3258A6",
+          },
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+        }}
+      />
+    </Stack>
+  );
+}
+
+Quando eu vou para choseOption, aparece rota não encontrada,
+Existe uma solução para isso?

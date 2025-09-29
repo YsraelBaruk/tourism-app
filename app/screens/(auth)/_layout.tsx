@@ -1,15 +1,27 @@
 import { Stack } from "expo-router";
+import { Image } from 'react-native';
 
 export default function AuthLayout() {
   return (
-    <Stack>
-      <Stack.Screen 
-        name="login/index" 
-        options={{ title: "Login" }} 
+    <Stack screenOptions={{
+      headerTitle: () => (
+        <Image
+          source={require("@/assets/images/logo.png")}
+          style={{ width: 60, resizeMode: "contain" }}
+        />
+      ),
+      headerStyle: {
+        backgroundColor: "#3258A6",
+      },
+      headerTintColor: "#fff",
+      headerTitleAlign: "center",
+    }}>
+      <Stack.Screen
+        // name="login"
+        // options={{ title: "Login" }}
       />
-      <Stack.Screen 
-        name="register/index"
-        options={{ title: "Cadastrar-se" }} 
+      <Stack.Screen
+        name="(register)/choseOption"
       />
     </Stack>
   );
