@@ -32,10 +32,11 @@ export const styles = StyleSheet.create({
     width: width * 0.12,
     height: width * 0.12,
     backgroundColor: 'white',
-    borderRadius: width * 0.06,
+    borderRadius: width * 0.5,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 8,
+    padding: 10,
   },
   functionIconText: {
     fontSize: width * 0.05,

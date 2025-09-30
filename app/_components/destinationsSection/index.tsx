@@ -1,4 +1,4 @@
-import { MapPin } from 'lucide-react-native';
+import { Heart, MapPin } from 'lucide-react-native';
 
 import React from 'react';
 import {
@@ -17,8 +17,9 @@ import img1 from '@/assets/images/trips/image1.png';
 import img2 from '@/assets/images/trips/image2.png';
 import img3 from '@/assets/images/trips/image3.png';
 import img4 from '@/assets/images/trips/image4.png';
+import { Icon } from '../IconMap';
 
-const DestinationsSection = () => {
+export function DestinationsSection () {
   const destinations = [
     {
       name: 'Sítio do Carroção',
@@ -72,7 +73,8 @@ const DestinationsSection = () => {
               <View style={styles.destinationInfo}>
                 <Text style={styles.destinationName}>{destination.name}</Text>
                 <View style={styles.favoriteIcon}>
-                  <Text style={styles.favoriteIconText}>♡</Text>
+                  {/* <Text style={styles.favoriteIconText}>♡</Text> */}
+                  <Icon name={Heart} size={18} color='white'/>
                 </View>
               </View>
               <View style={{ flexDirection: 'row', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', gap: 10, paddingLeft: 10, paddingBottom: 10}}>
@@ -90,5 +92,3 @@ const DestinationsSection = () => {
     </View>
   );
 };
-
-export default DestinationsSection;

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -7,14 +6,18 @@ import {
 
 import { styles } from '@/app/_components/functionsSection/styles';
 
-const FunctionsSection = () => {
-  const functions = [
-    { icon: '🏨', label: 'Hotéis' },
-    { icon: '✈️', label: 'Voos' },
-    { icon: '📍', label: 'Locais' },
-    { icon: '🎫', label: 'Eventos' },
-  ];
+import { CalendarCheck, GraduationCap, Heart, MapPin } from 'lucide-react-native';
+import { Icon } from '../IconMap/index';
 
+export function FunctionsSection () {
+
+  const functions = [
+    { icon: CalendarCheck, label: 'Acompanhar eventos' },
+    { icon: MapPin, label: 'Ver Trilhas' },
+    { icon: Heart , label: 'Meus roteiros favoritos' },
+    { icon: GraduationCap, label: 'Certificados' },
+  ];
+  
   return (
     <View style={styles.functionsSection}>
       <Text style={styles.functionsTitle}>FUNÇÕES</Text>
@@ -26,7 +29,7 @@ const FunctionsSection = () => {
         {functions.map((func, index) => (
           <TouchableOpacity key={index} style={styles.functionItem}>
             <View style={styles.functionIcon}>
-              <Text style={styles.functionIconText}>{func.icon}</Text>
+              <Icon name={func.icon} color="#2457C5" size={30} />
             </View>
             <Text style={styles.functionLabel}>{func.label}</Text>
           </TouchableOpacity>
@@ -36,4 +39,3 @@ const FunctionsSection = () => {
   );
 };
 
-export default FunctionsSection;
