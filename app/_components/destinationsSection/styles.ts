@@ -28,11 +28,15 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 15,
     height: 40,
+    borderColor: '#2F5CDA',
+    borderWidth: 1,
+    width: width * 0.8,
   },
   searchInput: {
     flex: 1,
-    fontSize: width * 0.035,
+    fontSize: width * 0.03,
     color: '#333',
+
   },
   destinationsGrid: {
     flexDirection: 'row',

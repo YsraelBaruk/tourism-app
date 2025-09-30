@@ -4,8 +4,9 @@ import {
 
 interface IconProps {
     name: LucideIcon,
-    color: string,
-    size: number
+    color?: string,
+    size: number,
+    fill?: string
 }
 
 export function Icon ({ name, color, size }: IconProps) {

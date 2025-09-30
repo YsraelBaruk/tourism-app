@@ -1,4 +1,4 @@
-import { Heart, MapPin } from 'lucide-react-native';
+import { Funnel, Heart, MapPin } from 'lucide-react-native';
 
 import React from 'react';
 import {
@@ -47,12 +47,19 @@ export function DestinationsSection() {
     <View style={styles.destinationsSection}>
       <View style={styles.destinationsHeader}>
         <Text style={styles.destinationsTitle}>DESTINOS</Text>
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Buscar destinos..."
-            placeholderTextColor="#999"
-          />
+        <View style={{display: 'flex', flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.searchContainer}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Buscar destinos..."
+              placeholderTextColor="#999"
+            />
+          </View>
+          <TouchableOpacity>
+            <View style={{padding: 5, borderColor: '#2F5CDA', borderWidth: 1, borderRadius: 10}}>
+              <Icon name={Funnel} size={15} color='black' />
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -70,7 +77,7 @@ export function DestinationsSection() {
                 style={styles.destinationImage}
               />
               <View style={styles.favoriteIcon}>
-                <Icon name={Heart} size={18} color='white' />
+                <Icon name={Heart} size={18} color='white' fill='black' />
               </View>
               <View style={styles.destinationInfo}>
                 <Text style={styles.destinationName}>{destination.name}</Text>
