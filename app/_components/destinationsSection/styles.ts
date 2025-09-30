@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 12,  // igual ao seu card
     overflow: 'hidden', // para que o gradiente respeite os cantos arredondados
+    position: 'relative'
   },
   destinationsHeader: {
     marginBottom: 20,
@@ -74,11 +75,23 @@ export const styles = StyleSheet.create({
     fontSize: width * 0.03,
     color: '#fff',
   },
+  destinationCardCity: {
+    flexDirection: 'row', 
+    display: 'flex', 
+    alignItems: 'flex-start', 
+    justifyContent: 'flex-start', 
+    gap: 10, 
+    paddingLeft: 10, 
+    paddingBottom: 10
+  },
   favoriteIcon: {
     width: 24,
     height: 24,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'absolute',
+    top: 10,
+    right: 10
   },
   favoriteIconText: {
     fontSize: 18,

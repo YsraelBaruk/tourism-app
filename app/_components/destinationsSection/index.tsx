@@ -19,7 +19,7 @@ import img3 from '@/assets/images/trips/image3.png';
 import img4 from '@/assets/images/trips/image4.png';
 import { Icon } from '../IconMap';
 
-export function DestinationsSection () {
+export function DestinationsSection() {
   const destinations = [
     {
       name: 'Sítio do Carroção',
@@ -60,25 +60,23 @@ export function DestinationsSection () {
         {destinations.map((destination, index) => (
           <TouchableOpacity key={index} style={styles.destinationCard}>
             <LinearGradient
-              colors={['#2F5CDA', '#193174']}  // seu gradiente
-              start={{ x: 0, y: 0 }}           // começo do gradiente
-              end={{ x: 1, y: 1 }}             // final do gradiente
+              colors={['#2F5CDA', '#193174']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
               style={styles.destinationCardGradient}
             >
-
               <Image
                 source={destination.image}
                 style={styles.destinationImage}
               />
+              <View style={styles.favoriteIcon}>
+                <Icon name={Heart} size={18} color='white' />
+              </View>
               <View style={styles.destinationInfo}>
                 <Text style={styles.destinationName}>{destination.name}</Text>
-                <View style={styles.favoriteIcon}>
-                  {/* <Text style={styles.favoriteIconText}>♡</Text> */}
-                  <Icon name={Heart} size={18} color='white'/>
-                </View>
               </View>
-              <View style={{ flexDirection: 'row', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start', gap: 10, paddingLeft: 10, paddingBottom: 10}}>
-                <MapPin size={15} color={'#fff'}/>
+              <View style={styles.destinationCardCity}>
+                <MapPin size={15} color={'#fff'} />
                 <Text style={styles.destinationCity}>{destination.city}</Text>
               </View>
             </LinearGradient>
