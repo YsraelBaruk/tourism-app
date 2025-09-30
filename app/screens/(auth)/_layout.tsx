@@ -6,7 +6,7 @@ export default function AuthLayout() {
     <Stack screenOptions={{
       headerTitle: () => (
         <Image
-          source={require("@/assets/images/logo.png")}
+          source={require("@/assets/images/trips/logo.png")}
           style={{ width: 60, resizeMode: "contain" }}
         />
       ),

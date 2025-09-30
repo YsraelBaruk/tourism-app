@@ -7,7 +7,7 @@ import {
     StyleSheet
 } from 'react-native';
 
-import ExploreSection from '@/app/_components/exploreSection';
+import { ExploreSection } from '@/app/_components/exploreSection';
 import { FunctionsSection } from '@/app/_components/functionsSection';
 import { HeaderHome } from '@/app/_components/headerHome/index';
 import { DestinationsSection } from '@/app/_components/destinationsSection';

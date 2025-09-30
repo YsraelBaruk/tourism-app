@@ -1,16 +1,13 @@
-import React from 'react';
 import {
   Image,
-  Text,
   View,
 } from 'react-native';
 
 import { styles } from '@/app/_components/headerHome/styles';
-import { LinearGradient } from 'expo-linear-gradient';
 
-import logo from '@/assets/images/logo.png'
+import logo from '@/assets/images/trips/logo.png'
 
-export const HeaderHome = () => {
+export function HeaderHome () {
   return (
     <View
       style={styles.header}
