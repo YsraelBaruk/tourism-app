@@ -5,13 +5,12 @@ export const styles = StyleSheet.create({
   header: {
     width: '100%',
     paddingTop: Platform.OS === 'ios' ? StatusBar.currentHeight || 44 : StatusBar.currentHeight || 0,
-    paddingHorizontal: width * 0.05,
-    paddingVertical: 20,
-    minHeight: 100,
+    minHeight: width * 0.15,
+    backgroundColor: '#82A1E2',
   },
   headerTop: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },

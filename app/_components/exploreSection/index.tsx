@@ -2,7 +2,8 @@ import React from 'react';
 import {
   ImageBackground,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 
 import { styles } from '@/app/_components/exploreSection/styles';
@@ -21,6 +22,20 @@ const ExploreSection = () => {
         <Text style={styles.exploreSubtitle}>
           Explore os melhores destinos do mundo para as suas próximas viagens
         </Text>
+        <View style={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 10, flexDirection: 'row-reverse' }}>
+          <View style={styles.profileContainer}>
+            <Image
+              source={{
+                uri: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+              }}
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
+          </View>
+          <View style={styles.greetingContainer}>
+            <Text style={styles.greeting}>Olá, User</Text>
+          </View>
+        </View>
       </View>
     </ImageBackground>
   );

@@ -2,16 +2,16 @@ import { width } from "@/app/screens/(client)/home/index";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  functionsSection: {
-    backgroundColor: '#4A90E2',
-    paddingHorizontal: width * 0.05,
-    paddingVertical: 25,
-  },
   functionsTitle: {
     color: 'white',
     fontSize: width * 0.05,
     fontWeight: 'bold',
     marginBottom: 8,
+    textAlign: 'center'
+  },
+  destinationCardGradient: {
+    paddingTop: 10,
+    paddingBottom: 30
   },
   functionsSubtitle: {
     color: 'white',
@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     opacity: 0.9,
     marginBottom: 20,
     lineHeight: 20,
+    textAlign: 'center'
   },
   functionsGrid: {
     flexDirection: 'row',
@@ -30,9 +31,10 @@ export const styles = StyleSheet.create({
   },
   functionIcon: {
     width: width * 0.12,
+    borderRadius: 40,
     height: width * 0.12,
     backgroundColor: 'white',
-    borderRadius: width * 0.5,
+    // borderRadius: width * 0.5,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 8,

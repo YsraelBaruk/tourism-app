@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
   },
   searchContainer: {
     backgroundColor: '#f8f8f8',
-    borderRadius: 8,
+    borderRadius: 10,
     paddingHorizontal: 15,
     height: 40,
     borderColor: '#2F5CDA',
