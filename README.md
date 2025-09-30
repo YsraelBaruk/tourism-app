@@ -43,3 +43,4 @@ npm run reset-project
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 ## Links Importantes
 - [Jira](https://israekbaruque992.atlassian.net/jira/software/projects/ATS)
+- [Figma](https://www.figma.com/design/zOzUgQfzeZNrj510hlyckI/TRAVELIING?node-id=180-155&t=OPCm0TUGK2mLMixZ-1)
