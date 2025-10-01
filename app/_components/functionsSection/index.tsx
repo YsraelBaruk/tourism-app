@@ -4,13 +4,13 @@ import {
   View,
 } from 'react-native';
 
-import { styles } from '@/app/_components/functionsSection/styles';
+import styles from '@/app/_components/functionsSection/styles';
 
 import { CalendarCheck, GraduationCap, Heart, MapPin } from 'lucide-react-native';
-import { Icon } from '../IconMap/index';
+import Icon from '../IconMap/index';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export function FunctionsSection() {
+function FunctionsSection() {
 
   const functions = [
     { icon: CalendarCheck, label: 'Acompanhar eventos' },
@@ -47,3 +47,4 @@ export function FunctionsSection() {
   );
 };
 
+export default FunctionsSection;

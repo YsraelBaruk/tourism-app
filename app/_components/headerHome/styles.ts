@@ -1,7 +1,7 @@
-import { width } from "@/app/screens/(client)/home/index";
+import { width } from "@/app/index";
 import { Platform, StatusBar, StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   header: {
     width: '100%',
     paddingTop: Platform.OS === 'ios' ? StatusBar.currentHeight || 44 : StatusBar.currentHeight || 0,
@@ -15,3 +15,5 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default styles;

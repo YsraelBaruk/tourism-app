@@ -3,9 +3,9 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Para o ícone de voltar
 import { useRouter } from "expo-router";
 
-import { styles } from '../choseOption/styles'
+import styles from './styles'
 
-export default function RegisterScreen() {
+function RegisterScreen() {
 
   const router = useRouter();
 
@@ -50,5 +50,6 @@ export default function RegisterScreen() {
       </View>
     </View>
   );
-
 }
+
+export default RegisterScreen;

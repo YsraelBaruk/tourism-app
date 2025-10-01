@@ -1,7 +1,7 @@
-import { width } from "@/app/screens/(client)/home/index";
+import { width } from "@/app/index";
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   profileContainer: {
     width: 40,
     height: 40,
@@ -37,3 +37,5 @@ export const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
 });
+
+export default styles;

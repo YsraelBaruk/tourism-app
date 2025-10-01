@@ -11,15 +11,15 @@ import {
 
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { styles } from '@/app/_components/destinationsSection/styles';
+import styles from '@/app/_components/destinationsSection/styles';
 
 import img1 from '@/assets/images/trips/image1.png';
 import img2 from '@/assets/images/trips/image2.png';
 import img3 from '@/assets/images/trips/image3.png';
 import img4 from '@/assets/images/trips/image4.png';
-import { Icon } from '../IconMap';
+import Icon from '../IconMap';
 
-export function DestinationsSection() {
+function DestinationsSection() {
   const destinations = [
     {
       name: 'Sítio do Carroção',
@@ -97,3 +97,5 @@ export function DestinationsSection() {
     </View>
   );
 };
+
+export default DestinationsSection;

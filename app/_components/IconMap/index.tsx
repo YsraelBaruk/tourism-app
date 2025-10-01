@@ -9,7 +9,7 @@ interface IconProps {
     fill?: string
 }
 
-export function Icon ({ name, color, size }: IconProps) {
+function Icon ({ name, color, size }: IconProps) {
   
   const LucideIcn = name
 
@@ -25,3 +25,5 @@ export function Icon ({ name, color, size }: IconProps) {
     />
   );
 };
+
+export default Icon;

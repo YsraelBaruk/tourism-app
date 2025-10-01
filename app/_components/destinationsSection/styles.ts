@@ -1,12 +1,12 @@
-import { width } from "@/app/screens/(client)/home/index";
+import { width } from "@/app/index";
 import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   destinationsSection: {
     backgroundColor: 'white',
     paddingHorizontal: width * 0.05,
     paddingVertical: 25,
-    flex: 1,
+    // flex: 1,
   },
   destinationCardGradient: {
     flex: 1,
@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     fontSize: width * 0.05,
     fontWeight: 'bold',
     marginBottom: 15,
+    textAlign: 'center'
   },
   searchContainer: {
     backgroundColor: '#f8f8f8',
@@ -115,3 +116,5 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+
+export default styles

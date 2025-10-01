@@ -3,9 +3,9 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
-import { styles } from './styles'
+import styles from './styles'
 
-export default function ClientRegister() {
+function ClientRegister() {
   const router = useRouter();
 
   // Estados dos inputs
@@ -69,3 +69,5 @@ export default function ClientRegister() {
     </View>
   );
 }
+
+export default ClientRegister;

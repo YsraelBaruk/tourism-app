@@ -1,24 +1,26 @@
-import React from 'react';
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
-    Dimensions,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet
+  ScrollView,
+  StatusBar,
+  StyleSheet
 } from 'react-native';
 
-import { ExploreSection } from '@/app/_components/exploreSection';
-import { FunctionsSection } from '@/app/_components/functionsSection';
-import { HeaderHome } from '@/app/_components/headerHome/index';
-import { DestinationsSection } from '@/app/_components/destinationsSection';
+import HeaderHome from '@/app/_components/headerHome/index';
+import ExploreSection from '@/app/_components/exploreSection';
+import FunctionsSection from '@/app/_components/functionsSection';
+import DestinationsSection from '@/app/_components/destinationsSection';
+import { Flame } from "lucide-react-native";
 
-export const { width } = Dimensions.get('window');
-
-const Home = () => {
+function Home() {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#3189afff" />
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+    <SafeAreaView
+      style={styles.container}
+    >
+      {/* <StatusBar barStyle="light-content" backgroundColor="#3189afff" /> */}
+      <ScrollView 
+      style={styles.scrollView}
+      contentContainerStyle={styles.contentContainer}
+      showsVerticalScrollIndicator={true}>
         <HeaderHome />
         <ExploreSection />
         <FunctionsSection />
@@ -33,9 +35,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
+  contentContainer: {
+    flex: 1,
+  },
   scrollView: {
     flex: 1,
   },
-});
+}); 
 
+//  Home;
 export default Home;

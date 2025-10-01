@@ -3,11 +3,11 @@ import {
   View,
 } from 'react-native';
 
-import { styles } from '@/app/_components/headerHome/styles';
+import styles from '@/app/_components/headerHome/styles';
 
 import logo from '@/assets/images/trips/logo.png'
 
-export function HeaderHome () {
+function HeaderHome () {
   return (
     <View
       style={styles.header}
@@ -18,3 +18,5 @@ export function HeaderHome () {
     </View>
   );
 };
+
+export default HeaderHome;

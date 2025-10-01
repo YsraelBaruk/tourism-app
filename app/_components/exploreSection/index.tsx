@@ -3,14 +3,12 @@ import {
   ImageBackground,
   Text,
   View,
-  Image,
-  TouchableOpacity
 } from 'react-native';
 
-import { styles } from '@/app/_components/exploreSection/styles';
-import { Profile } from '../componentUser/profile';
+import Profile from '../componentUser/profile';
+import styles from './styles';
 
-export function ExploreSection () {
+function ExploreSection () {
   return (
     <ImageBackground
       source={{
@@ -29,3 +27,5 @@ export function ExploreSection () {
     </ImageBackground>
   );
 };
+
+export default ExploreSection;

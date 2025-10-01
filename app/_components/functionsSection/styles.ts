@@ -1,7 +1,7 @@
-import { width } from "@/app/screens/(client)/home/index";
+import { width } from "@/app/index";
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   functionsTitle: {
     color: 'white',
     fontSize: width * 0.05,
@@ -49,3 +49,5 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default styles;

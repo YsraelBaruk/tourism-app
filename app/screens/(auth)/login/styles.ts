@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
   },
@@ -131,3 +131,5 @@ export const styles = StyleSheet.create({
     fontStyle: "italic",
   },
 });
+
+export default styles;

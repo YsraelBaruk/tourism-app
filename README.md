@@ -44,3 +44,6 @@ This command will move the starter code to the **app-example** directory and cre
 ## Links Importantes
 - [Jira](https://israekbaruque992.atlassian.net/jira/software/projects/ATS)
 - [Figma](https://www.figma.com/design/zOzUgQfzeZNrj510hlyckI/TRAVELIING?node-id=180-155&t=OPCm0TUGK2mLMixZ-1)
+
+eslint-config-expo@9.2.0 - expected version: ~10.0.0
+typescript@5.8.3 - expected version: ~5.9.2

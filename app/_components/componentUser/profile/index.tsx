@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, View, Image, Text, Pressable } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
-import { styles } from './styles'
+import styles from './styles';
 
-export function Profile() {
+function Profile() {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const handleProfilePress = () => {
@@ -30,3 +30,5 @@ export function Profile() {
     </TouchableOpacity>
   )
 }
+
+export default Profile;

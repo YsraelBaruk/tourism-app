@@ -1,7 +1,7 @@
-import { width } from "@/app/screens/(client)/home/index";
+import { width } from "@/app/index";
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   backgroundImage: {
     width: '100%',
     justifyContent: 'center',
@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: width * 0.05,
     paddingBottom: 30,
     paddingTop: 10,
-    flex: 1,
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -35,3 +35,5 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
 });
+
+export default styles;
