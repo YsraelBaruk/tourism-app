@@ -26,7 +26,7 @@ jobs:
         run: npm install -g eas-cli
 
       - name: Login na Expo
-        run: eas whoami || eas login --token ${{ secrets.EXPO_TOKEN }}
+        run: eas israel09baruque || eas login --token ${{ secrets.EXPO_TOKEN }}
 
       # Gera o build de acordo com a branch
       - name: Gerar build de desenvolvimento (israel)
