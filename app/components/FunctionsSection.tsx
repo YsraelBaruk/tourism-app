@@ -6,81 +6,91 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
 const FunctionsSection = () => {
   const functions = [
-    { icon: '🏨', label: 'Hotéis' },
-    { icon: '✈️', label: 'Voos' },
-    { icon: '📍', label: 'Locais' },
-    { icon: '🎫', label: 'Eventos' },
+    { icon: 'calendar-outline', label: 'Eventos' },
+    { icon: 'map-outline', label: 'Trilhas' },
+    { icon: 'heart-outline', label: 'Favoritos' },
+    { icon: 'document-text-outline', label: 'Certificados' },
   ];
 
   return (
-    <View style={styles.functionsSection}>
-      <Text style={styles.functionsTitle}>FUNÇÕES</Text>
-      <Text style={styles.functionsSubtitle}>
-        Explore suas funções favoritas que tornam sua viagem mais fácil
+    <LinearGradient
+     colors={['#2F5CDA', '#193174']} // 🔹 novo gradiente
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      style={styles.section}
+    >
+      <Text style={styles.title}>FUNÇÕES</Text>
+      <Text style={styles.subtitle}>
+        Explore suas melhores versões das quais eu to enchendo linguica
       </Text>
-      
-      <View style={styles.functionsGrid}>
+
+      <View style={styles.grid}>
         {functions.map((func, index) => (
-          <TouchableOpacity key={index} style={styles.functionItem}>
-            <View style={styles.functionIcon}>
-              <Text style={styles.functionIconText}>{func.icon}</Text>
+          <TouchableOpacity key={index} style={styles.item}>
+            <View style={styles.iconCircle}>
+              <Ionicons name={func.icon} size={26} color="#003F9E" />
             </View>
-            <Text style={styles.functionLabel}>{func.label}</Text>
+            <Text style={styles.label}>{func.label}</Text>
           </TouchableOpacity>
         ))}
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  functionsSection: {
-    backgroundColor: '#4A90E2',
-    paddingHorizontal: width * 0.05,
+  section: {
     paddingVertical: 25,
+    paddingHorizontal: 20,
+    alignItems: 'center',
   },
-  functionsTitle: {
+  title: {
     color: 'white',
-    fontSize: width * 0.05,
+    fontSize: 32,
     fontWeight: 'bold',
+    textAlign: 'center',
     marginBottom: 8,
   },
-  functionsSubtitle: {
+  subtitle: {
     color: 'white',
-    fontSize: width * 0.035,
+    fontSize: width * 0.033,
+    textAlign: 'center',
     opacity: 0.9,
-    marginBottom: 20,
+    marginBottom: 25,
     lineHeight: 20,
   },
-  functionsGrid: {
+  grid: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
+    width: '100%',
   },
-  functionItem: {
+  item: {
     alignItems: 'center',
-    flex: 1,
+    width: '23%', // 4 por linha
+    marginBottom: 25,
   },
-  functionIcon: {
-    width: width * 0.12,
-    height: width * 0.12,
+  iconCircle: {
+    width: width * 0.16, // ajustado pro novo layout
+    height: width * 0.16,
     backgroundColor: 'white',
-    borderRadius: width * 0.06,
+    borderRadius: width * 0.08,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 10,
   },
-  functionIconText: {
-    fontSize: width * 0.05,
-  },
-  functionLabel: {
+  label: {
     color: 'white',
-    fontSize: width * 0.03,
+    fontSize: 12,
     textAlign: 'center',
+    lineHeight: 16,
   },
 });
 

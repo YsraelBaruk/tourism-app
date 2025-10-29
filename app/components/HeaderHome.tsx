@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)', // Camada escura para melhorar a leitura
+    backgroundColor: 'rgba(51, 51, 54, 0.62)', // Camada escura para melhorar a leitura
     paddingTop: 25,
     paddingHorizontal: width * 0.05,
     paddingBottom: 20,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     overflow: 'hidden',
     borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderColor: 'rgba(0, 0, 0, 0.3)',
     marginLeft: 10,
   },
   profileImage: {
@@ -134,11 +134,12 @@ const styles = StyleSheet.create({
   },
   exploreSubtitle: {
     color: 'white',
-    fontSize: width * 0.04,
-    opacity: 0.9,
+    fontSize: width * 0.035,
+    opacity: 0.95,
     lineHeight: 21,
     textAlign: 'center',
-    marginBottom:10,
+    marginBottom:15,
+    fontWeight: '400',
   },
 });
 
