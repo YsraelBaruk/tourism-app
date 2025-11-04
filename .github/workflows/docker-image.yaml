@@ -1,0 +1,47 @@
+name: Update and Build
+
+on:
+  push:
+    branches:
+      - main
+      - israel
+      - bruno
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🚀 Build app (Development)
+        if: github.ref == 'refs/heads/israel'
+        run: eas build --platform android --profile development --non-interactive
+
+      # 🚀 Build de Produção (branch main)
+      - name: 🚀 Build app (Production)
+        if: github.ref == 'refs/heads/main'
+        run: eas build --platform android --profile production --non-interactive
+
+      - name: 📦 Upload APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: expo-apk
+          path: dist/
