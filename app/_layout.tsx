@@ -8,7 +8,7 @@ function CustomHeader({ title }: { title: string }) {
     <View
       style={{
         height: 100, // altura maior
-        backgroundColor: "#3258A6", // cor do header
+        backgroundColor: "#1f4ba3ff", // cor do header
         justifyContent: "center", // centraliza verticalmente
         alignItems: "center",    // centraliza horizontalmente
         shadowColor: "#000",

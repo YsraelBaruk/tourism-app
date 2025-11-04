@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 
 import HeaderHome from './components/HeaderHome';
-import ExploreSection from './components/ExploreSection';
 import FunctionsSection from './components/FunctionsSection';
 import DestinationsSection from './components/DestinationsSection';
 
@@ -17,7 +16,6 @@ const Home = () => {
       <StatusBar barStyle="light-content" backgroundColor="#3189afff" />
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <HeaderHome />
-        <ExploreSection />
         <FunctionsSection />
         <DestinationsSection />
       </ScrollView>
