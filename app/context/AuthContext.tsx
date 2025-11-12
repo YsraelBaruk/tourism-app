@@ -49,3 +49,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     </AuthContext.Provider>
   );
 };
+
+// Export default para compatibilidade com Expo Router
+export default AuthProvider;

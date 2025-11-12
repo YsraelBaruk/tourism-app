@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import Constants from 'expo-constants'
 import * as SecureStore from 'expo-secure-store'
+import { Platform } from 'react-native'
 
 // Prefer process.env (build-time) and fall back to expo constants extra (runtime)
 const env = (process.env as Record<string, string | undefined>) || {}
@@ -21,10 +22,43 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   )
 }
 
+// Adapter que funciona tanto no mobile quanto no web
 const ExpoSecureStoreAdapter = {
-  getItem: (key: string) => SecureStore.getItemAsync(key),
-  setItem: (key: string, value: string) => SecureStore.setItemAsync(key, value),
-  removeItem: (key: string) => SecureStore.deleteItemAsync(key),
+  getItem: (key: string) => {
+    if (Platform.OS === 'web') {
+      // No web, use localStorage como fallback
+      try {
+        return Promise.resolve(localStorage.getItem(key));
+      } catch {
+        return Promise.resolve(null);
+      }
+    }
+    return SecureStore.getItemAsync(key);
+  },
+  setItem: (key: string, value: string) => {
+    if (Platform.OS === 'web') {
+      // No web, use localStorage como fallback
+      try {
+        localStorage.setItem(key, value);
+        return Promise.resolve();
+      } catch {
+        return Promise.resolve();
+      }
+    }
+    return SecureStore.setItemAsync(key, value);
+  },
+  removeItem: (key: string) => {
+    if (Platform.OS === 'web') {
+      // No web, use localStorage como fallback
+      try {
+        localStorage.removeItem(key);
+        return Promise.resolve();
+      } catch {
+        return Promise.resolve();
+      }
+    }
+    return SecureStore.deleteItemAsync(key);
+  },
 }
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
