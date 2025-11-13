@@ -152,7 +152,7 @@ function ClientRegister() {
             console.log("Botão clicado!");
             Alert.alert("Teste", "Botão funcionando!");
             // Descomente a linha abaixo após confirmar que o botão funciona
-            // handleSignUp();
+            handleSignUp();
           }}
         >
           <Text style={styles.buttonText}>Próximo</Text>

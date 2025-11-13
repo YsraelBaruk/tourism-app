@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
+import { useAuth } from '@/app/context/AuthContext';
 import styles from './styles';
 
 function Profile() {
   const [isModalVisible, setModalVisible] = useState(false);
+  const { user } = useAuth();
 
   const handleProfilePress = () => {
     setModalVisible(true);
+  };
+
+  // Extrai o nome do usuário dos metadados ou usa o email como fallback
+  const getUserName = () => {
+    if (user?.user_metadata?.name) {
+      return user.user_metadata.name;
+    }
+    if (user?.email) {
+      // Se não tiver nome, usa a parte antes do @ do email
+      return user.email.split('@')[0];
+    }
+    return 'User';
   };
 
   return (
@@ -25,7 +39,7 @@ function Profile() {
           />
         </View>
         <View style={styles.greetingContainer}>
-          <Text style={styles.greeting}>Olá, User</Text>
+          <Text style={styles.greeting}>Olá, {getUserName()}</Text>
         </View>
     </TouchableOpacity>
   )
