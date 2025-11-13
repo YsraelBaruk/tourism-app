@@ -1,12 +1,12 @@
 import { Funnel, Heart, MapPin } from 'lucide-react-native';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Image,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';

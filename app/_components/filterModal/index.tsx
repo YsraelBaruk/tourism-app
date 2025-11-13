@@ -1,13 +1,13 @@
+import { Calendar, X } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
   Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
   ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { X, Calendar } from 'lucide-react-native';
 import Icon from '../IconMap';
 import styles from './styles';
 
