@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import { useAuth } from '@/app/context/AuthContext';
+import ModalProfile from '../modal';
 import styles from './styles';
 
 function Profile() {
@@ -10,6 +11,10 @@ function Profile() {
 
   const handleProfilePress = () => {
     setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
   };
 
   // Extrai o nome do usuário dos metadados ou usa o email como fallback
@@ -25,6 +30,7 @@ function Profile() {
   };
 
   return (
+    <>
     <TouchableOpacity
       style={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 10, flexDirection: 'row-reverse' }}
       onPress={handleProfilePress}
@@ -42,6 +48,14 @@ function Profile() {
           <Text style={styles.greeting}>Olá, {getUserName()}</Text>
         </View>
     </TouchableOpacity>
+    {isModalVisible && (
+      <ModalProfile 
+        visible={isModalVisible} 
+        onClose={handleCloseModal}
+        userName={getUserName()}
+      />
+    )}
+    </>
   )
 }
 

@@ -148,12 +148,7 @@ function ClientRegister() {
         {/* Botão Próximo */}
         <TouchableOpacity 
           style={styles.button} 
-          onPress={() => {
-            console.log("Botão clicado!");
-            Alert.alert("Teste", "Botão funcionando!");
-            // Descomente a linha abaixo após confirmar que o botão funciona
-            handleSignUp();
-          }}
+          onPress={handleSignUp}
         >
           <Text style={styles.buttonText}>Próximo</Text>
         </TouchableOpacity>

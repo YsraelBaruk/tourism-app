@@ -1,15 +1,13 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
-  ScrollView,
-  StatusBar,
-  StyleSheet
+    ScrollView,
+    StyleSheet
 } from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import HeaderHome from '@/app/_components/headerHome/index';
+import DestinationsSection from '@/app/_components/destinationsSection';
 import ExploreSection from '@/app/_components/exploreSection';
 import FunctionsSection from '@/app/_components/functionsSection';
-import DestinationsSection from '@/app/_components/destinationsSection';
-import { Flame } from "lucide-react-native";
+import HeaderHome from '@/app/_components/headerHome/index';
 
 function Home() {
   return (
@@ -36,7 +34,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   contentContainer: {
-    flex: 1,
+    flexGrow: 1,
   },
   scrollView: {
     flex: 1,
