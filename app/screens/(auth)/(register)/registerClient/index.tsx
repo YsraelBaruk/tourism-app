@@ -2,7 +2,7 @@ import { supabase } from "@/supabase";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import styles from './styles';
 
@@ -19,6 +19,9 @@ function ClientRegister() {
   const [confirmarSenha, setConfirmarSenha] = useState(""); // Campo de confirmação
 
   const handleSignUp = async () => {
+    console.log("handleSignUp chamado");
+    console.log("Dados:", { nome, email, senha, confirmarSenha, role });
+    
     if (!nome || !email || !senha || !confirmarSenha) {
       Alert.alert("Erro", "Por favor, preencha todos os campos.");
       return;
@@ -32,41 +35,51 @@ function ClientRegister() {
       return;
     }
 
-    // 1. Tenta cadastrar o usuário no Supabase Auth
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: email,
-      password: senha,
-      options: {
-        data: {
-          // Estes dados vão para 'raw_user_meta_data'
-          // O gatilho da Fase 2 usará isso
-          name: nome,
-          role: role, // 'usuario_comum'
-          // Você pode adicionar cpf e telefone aqui também se quiser
-          cpf: cpf,
-          telefone: telefone,
+    console.log("Iniciando cadastro no Supabase...");
+    
+    try {
+      // 1. Tenta cadastrar o usuário no Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: email,
+        password: senha,
+        options: {
+          data: {
+            // Estes dados vão para 'raw_user_meta_data'
+            // O gatilho da Fase 2 usará isso
+            name: nome,
+            role: role, // 'usuario_comum'
+            // Você pode adicionar cpf e telefone aqui também se quiser
+            cpf: cpf,
+            telefone: telefone,
+          }
         }
-      }
-    });
+      });
+
+    console.log("Resposta do Supabase:", { authData, authError });
 
     if (authError) {
+      console.log("Erro no cadastro:", authError.message);
       Alert.alert("Erro no cadastro", authError.message);
       return;
     }
 
     if (!authData.session) {
        Alert.alert("Cadastro realizado", "Verifique seu e-mail para confirmar a conta!");
-       router.push("/login"); // Volta para o login
+       router.push("/screens/(auth)/login"); // Volta para o login
        return;
     }
     
-    // Se o usuário for logado automaticamente (ex: email de confirmação desabilitado)
-    Alert.alert("Sucesso", "Conta criada e login efetuado!");
-    router.replace("/home");
+      // Se o usuário for logado automaticamente (ex: email de confirmação desabilitado)
+      Alert.alert("Sucesso", "Conta criada e login efetuado!");
+      router.replace("/screens/(client)/home");
+    } catch (error) {
+      console.log("Erro inesperado:", error);
+      Alert.alert("Erro", "Ocorreu um erro inesperado. Tente novamente.");
+    }
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
@@ -133,11 +146,19 @@ function ClientRegister() {
         />
 
         {/* Botão Próximo */}
-        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => {
+            console.log("Botão clicado!");
+            Alert.alert("Teste", "Botão funcionando!");
+            // Descomente a linha abaixo após confirmar que o botão funciona
+            // handleSignUp();
+          }}
+        >
           <Text style={styles.buttonText}>Próximo</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

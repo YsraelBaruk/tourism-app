@@ -31,7 +31,7 @@ function RegisterScreen() {
             style={styles.card}
             onPress={() =>
               router.push({
-                pathname: "./registerClient",
+                pathname: "/screens/(auth)/(register)/registerClient",
                 params: { role: 'usuario_comum' },
               })
             }
@@ -45,7 +45,7 @@ function RegisterScreen() {
             style={styles.card}
             onPress={() =>
               router.push({
-                pathname: "./registerOwn",
+                pathname: "/screens/(auth)/(register)/registerOwn",
                 params: { role: 'colaborador_privado' },
               })
             }

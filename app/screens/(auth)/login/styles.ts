@@ -3,8 +3,8 @@ import { Dimensions, StyleSheet } from "react-native";
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // Breakpoints para responsividade
-const isSmallScreen = screenWidth < 350;
-const isMediumScreen = screenWidth >= 350 && screenWidth < 500;
+const isSmallScreen = screenWidth < 375;
+const isMediumScreen = screenWidth >= 375 && screenWidth < 500;
 const isLargeScreen = screenWidth >= 500;
 
 const styles = StyleSheet.create({
@@ -18,14 +18,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: isSmallScreen ? 20 : isMediumScreen ? 30 : 40,
+    paddingHorizontal: isSmallScreen ? 20 : isMediumScreen ? 80: 400,
     paddingVertical: 20,
-    maxWidth: isLargeScreen ? 450 : "100%", // Largura máxima para telas grandes
+    maxWidth: "100%", // : "100%", // Largura máxima para telas grandes
     alignSelf: "center",
     width: "100%",
   },
   title: {
-    fontSize: Math.min(screenWidth * 0.08, 32), // Responsivo, máximo 32
+    fontSize: Math.min(screenWidth * 0.08, 50), // Responsivo, máximo 32
     fontWeight: "bold",
     marginBottom: 20,
     color: "#3258A6",
