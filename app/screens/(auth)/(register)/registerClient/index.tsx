@@ -1,4 +1,5 @@
 import { supabase } from "@/supabase";
+import { logger } from "@/utils/logger";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
@@ -19,23 +20,45 @@ function ClientRegister() {
   const [confirmarSenha, setConfirmarSenha] = useState(""); // Campo de confirmação
 
   const handleSignUp = async () => {
-    console.log("handleSignUp chamado");
-    console.log("Dados:", { nome, email, senha, confirmarSenha, role });
+    // Log da tentativa de cadastro
+    logger.logRegistrationAttempt({
+      email,
+      name: nome,
+      role: role as string,
+      cpf,
+      telefone,
+    });
     
     if (!nome || !email || !senha || !confirmarSenha) {
+      logger.logRegistrationError({
+        email,
+        name: nome,
+        role: role as string,
+        error: "Campos obrigatórios não preenchidos",
+      });
       Alert.alert("Erro", "Por favor, preencha todos os campos.");
       return;
     }
     if (senha !== confirmarSenha) {
+      logger.logRegistrationError({
+        email,
+        name: nome,
+        role: role as string,
+        error: "Senhas não conferem",
+      });
       Alert.alert("Erro", "As senhas não conferem.");
       return;
     }
     if (senha.length < 6) {
+      logger.logRegistrationError({
+        email,
+        name: nome,
+        role: role as string,
+        error: "Senha muito curta (menos de 6 caracteres)",
+      });
       Alert.alert("Erro", "A senha deve ter pelo menos 6 caracteres.");
       return;
     }
-
-    console.log("Iniciando cadastro no Supabase...");
     
     try {
       // 1. Tenta cadastrar o usuário no Supabase Auth
@@ -58,10 +81,27 @@ function ClientRegister() {
     console.log("Resposta do Supabase:", { authData, authError });
 
     if (authError) {
-      console.log("Erro no cadastro:", authError.message);
+      logger.logRegistrationError({
+        email,
+        name: nome,
+        role: role as string,
+        cpf,
+        telefone,
+        error: `Supabase Auth Error: ${authError.message}`,
+      });
       Alert.alert("Erro no cadastro", authError.message);
       return;
     }
+
+    // Log de cadastro bem-sucedido
+    logger.logUserRegistration({
+      userId: authData.user?.id,
+      email,
+      name: nome,
+      role: role as string,
+      cpf,
+      telefone,
+    });
 
     if (!authData.session) {
        Alert.alert("Cadastro realizado", "Verifique seu e-mail para confirmar a conta!");
@@ -73,7 +113,14 @@ function ClientRegister() {
       Alert.alert("Sucesso", "Conta criada e login efetuado!");
       router.replace("/screens/(client)/home");
     } catch (error) {
-      console.log("Erro inesperado:", error);
+      logger.logRegistrationError({
+        email,
+        name: nome,
+        role: role as string,
+        cpf,
+        telefone,
+        error: `Erro inesperado: ${error}`,
+      });
       Alert.alert("Erro", "Ocorreu um erro inesperado. Tente novamente.");
     }
   };
