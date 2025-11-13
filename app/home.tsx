@@ -1,8 +1,8 @@
-import HomeScreen from "./screens/(client)/home";
 import { useAuth } from "@/app/context/AuthContext";
-import { useEffect } from "react";
 import { useRouter } from "expo-router";
-import { View, Text } from "react-native";
+import { useEffect } from "react";
+import { Text, View } from "react-native";
+import HomeScreen from "./screens/(client)/home";
 
 export default function Home() {
   const { user, loading } = useAuth();
