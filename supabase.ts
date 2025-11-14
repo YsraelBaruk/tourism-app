@@ -26,12 +26,12 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
 const ExpoSecureStoreAdapter = {
   getItem: async (key: string) => {
     try {
-      let value;
-      if (Platform.OS === 'web') {
+      let value = null;
+      if (Platform.OS === 'web' && typeof localStorage !== 'undefined') {
         // No web, use localStorage como fallback
         value = localStorage.getItem(key);
         console.log('🔍 [Supabase] getItem (web):', { key, hasValue: !!value });
-      } else {
+      } else if (Platform.OS !== 'web') {
         value = await SecureStore.getItemAsync(key);
         console.log('🔍 [Supabase] getItem (mobile):', { key, hasValue: !!value });
       }
@@ -43,10 +43,10 @@ const ExpoSecureStoreAdapter = {
   },
   setItem: async (key: string, value: string) => {
     try {
-      if (Platform.OS === 'web') {
+      if (Platform.OS === 'web' && typeof localStorage !== 'undefined') {
         localStorage.setItem(key, value);
         console.log('💾 [Supabase] setItem (web):', { key, valueLength: value?.length });
-      } else {
+      } else if (Platform.OS !== 'web') {
         await SecureStore.setItemAsync(key, value);
         console.log('💾 [Supabase] setItem (mobile):', { key, valueLength: value?.length });
       }
@@ -56,10 +56,10 @@ const ExpoSecureStoreAdapter = {
   },
   removeItem: async (key: string) => {
     try {
-      if (Platform.OS === 'web') {
+      if (Platform.OS === 'web' && typeof localStorage !== 'undefined') {
         localStorage.removeItem(key);
         console.log('🗑️ [Supabase] removeItem (web):', { key });
-      } else {
+      } else if (Platform.OS !== 'web') {
         await SecureStore.deleteItemAsync(key);
         console.log('🗑️ [Supabase] removeItem (mobile):', { key });
       }

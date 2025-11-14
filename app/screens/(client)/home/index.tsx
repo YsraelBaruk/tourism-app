@@ -27,7 +27,6 @@ function Home() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#3189afff" />
       <ScrollView 
-        style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={true}
         refreshControl={
@@ -64,11 +63,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flexGrow: 1,
     paddingBottom: 20, // Espaço extra no final para melhor experiência
-  },
-  scrollView: {
-    height: '100%',
-    backgroundColor: 'transparent',
-  },
+  }
 }); 
 
 //  Home;
