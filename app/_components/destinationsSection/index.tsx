@@ -1,6 +1,5 @@
 import { Funnel, Heart, MapPin } from 'lucide-react-native';
 
-import React from 'react';
 import {
   Image,
   Text,

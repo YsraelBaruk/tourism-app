@@ -1,3 +1,0 @@
-linear
-stops 0 - 2F5CDA
-stops 100 - 193174

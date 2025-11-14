@@ -1,14 +1,70 @@
 // app/login.tsx
+import { supabase } from "@/supabase";
+import { logger } from "@/utils/logger";
 import { useRouter } from "expo-router";
-import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { Alert, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import styles from '@/app/screens/(auth)/login/styles';
 
 export default function Login() {
   const router = useRouter();
 
+  // Estados
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Função de login
+  const handleLogin = async () => {
+    if (!email || !password) {
+      logger.log('LOGIN_VALIDATION_ERROR', 'warn', {
+        email,
+        error: 'Campos obrigatórios não preenchidos',
+      });
+      Alert.alert("Erro", "Por favor, preencha todos os campos.");
+      return;
+    }
+
+    // Log da tentativa de login
+    logger.log('LOGIN_ATTEMPT', 'info', {
+      email,
+      event_description: 'Usuário tentando fazer login',
+    });
+
+    setLoading(true);
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    setLoading(false);
+    if (error) {
+      logger.log('LOGIN_ERROR', 'error', {
+        email,
+        error: `Login failed: ${error.message}`,
+        event_description: 'Erro durante tentativa de login',
+      });
+      Alert.alert("Erro no login", error.message);
+    } else {
+      // Login bem-sucedido!
+      logger.logUserLogin({
+        userId: data.user?.id,
+        email: data.user?.email,
+        name: data.user?.user_metadata?.name,
+        role: data.user?.user_metadata?.role,
+      });
+      Alert.alert("Sucesso", "Login realizado com sucesso!");
+      router.replace("/home");
+    }
+  };
+
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <ScrollView 
+      contentContainerStyle={styles.scrollContainer}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
+    >
       <View style={styles.container}>
         <Text style={styles.title}>Login</Text>
 
@@ -27,6 +83,8 @@ export default function Login() {
           style={styles.input}
           keyboardType="email-address"
           autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
         />
 
         {/* Campo de senha */}
@@ -35,6 +93,8 @@ export default function Login() {
           placeholder="********"
           style={styles.input}
           secureTextEntry
+          value={password}
+          onChangeText={setPassword}
         />
 
         {/* Container para o link "Esqueci a senha" alinhado à direita */}
@@ -45,14 +105,18 @@ export default function Login() {
         </View>
 
         {/* Botão de login */}
-        <TouchableOpacity style={styles.button} onPress={() => alert("Fazer login")}>
-          <Text style={styles.buttonText}>Entrar</Text>
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={handleLogin}
+          disabled={loading}
+        >
+          <Text style={styles.buttonText}>{loading ? "Entrando..." : "Entrar"}</Text>
         </TouchableOpacity>
 
         {/* Texto de registro */}
         <View style={styles.registerContainer}>
           <Text style={styles.registerText}>Ainda não tem conta? </Text>
-          <TouchableOpacity onPress={() => router.push("/screens/(auth)/(register)/choseOption")} >
+          <TouchableOpacity onPress={() => router.push("/register")} >
             <Text style={styles.registerLink}>Cadastre-se</Text>
           </TouchableOpacity>
         </View>

@@ -1,9 +1,8 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Para o ícone de voltar
 import { useRouter } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
 
-import styles from './styles'
+import styles from './styles';
 
 function RegisterScreen() {
 
@@ -30,7 +29,12 @@ function RegisterScreen() {
           {/* Card Visitante */}
           <TouchableOpacity
             style={styles.card}
-            onPress={() => router.push("/screens/(auth)/(register)/registerClient")}
+            onPress={() =>
+              router.push({
+                pathname: "/screens/(auth)/(register)/registerClient",
+                params: { role: 'usuario_comum' },
+              })
+            }
           >
             <Ionicons name="person-circle-outline" size={40} color="#3258A6" />
             <Text style={styles.cardText}>Visitante{"\n"}(Usuário comum)</Text>
@@ -39,7 +43,12 @@ function RegisterScreen() {
           {/* Card Colaborador */}
           <TouchableOpacity
             style={styles.card}
-            onPress={() => router.push("/screens/(auth)/(register)/registerClient")}
+            onPress={() =>
+              router.push({
+                pathname: "/screens/(auth)/(register)/registerOwn",
+                params: { role: 'colaborador_privado' },
+              })
+            }
           >
             <Ionicons name="person-add-outline" size={40} color="#3258A6" />
             <Text style={styles.cardText}>
