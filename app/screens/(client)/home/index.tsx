@@ -1,6 +1,10 @@
+import { useCallback, useState } from 'react';
 import {
-    ScrollView,
-    StyleSheet
+  RefreshControl,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  View
 } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -10,15 +14,24 @@ import FunctionsSection from '@/app/_components/functionsSection';
 import HeaderHome from '@/app/_components/headerHome/index';
 
 function Home() {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    // Simula uma requisição de dados
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1500);
+  }, []);
+
   return (
-    <SafeAreaView
-      style={styles.container}
-    >
-      {/* <StatusBar barStyle="light-content" backgroundColor="#3189afff" /> */}
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#3189afff" />
       <ScrollView 
-      style={styles.scrollView}
-      contentContainerStyle={styles.contentContainer}
-      showsVerticalScrollIndicator={true}>
+        style={styles.scrollView}
+        contentContainerStyle={styles.contentContainer}
+        showsVerticalScrollIndicator={true}
+      >
         <HeaderHome />
         <ExploreSection />
         <FunctionsSection />
@@ -35,9 +48,11 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
+    paddingBottom: 20, // Espaço extra no final para melhor experiência
   },
   scrollView: {
     flex: 1,
+    backgroundColor: 'transparent',
   },
 }); 
 

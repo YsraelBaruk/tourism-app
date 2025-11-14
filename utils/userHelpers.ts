@@ -281,14 +281,147 @@ export const insertUserOptionalFields = async (requiredData: {
   }
 };
 
+// Função melhorada que descobre as colunas disponíveis e adapta o insert
+export const createUserWithSchemaDiscovery = async (authUserId: string, formData: {
+  name: string;
+  email: string;
+  role: string;
+  cpf?: string;
+  telefone?: string;
+}) => {
+  try {
+    console.log('🔍 [UserHelpers] Descobrindo schema da tabela users...');
+    
+    // Primeiro, tenta descobrir quais colunas existem
+    let availableColumns: string[] = [];
+    
+    try {
+      // Tenta pegar um registro existente para descobrir as colunas
+      const { data: sampleData, error: sampleError } = await supabase
+        .from('users')
+        .select('*')
+        .limit(1);
+        
+      if (!sampleError && sampleData && sampleData.length > 0) {
+        availableColumns = Object.keys(sampleData[0]);
+        console.log('📋 [UserHelpers] Colunas descobertas:', availableColumns);
+      } else {
+        console.log('📋 [UserHelpers] Tabela vazia, usando colunas padrão');
+        availableColumns = ['id', 'name', 'email', 'role']; // Colunas básicas esperadas
+      }
+    } catch (discoverError) {
+      console.warn('⚠️ [UserHelpers] Erro ao descobrir schema, usando padrão:', discoverError);
+      availableColumns = ['id', 'name', 'email', 'role']; // Fallback para colunas básicas
+    }
+    
+    // Constrói o objeto de insert apenas com colunas que existem
+    const insertData: any = {};
+    
+    // Campos obrigatórios
+    if (availableColumns.includes('id')) insertData.id = authUserId;
+    if (availableColumns.includes('name')) insertData.name = formData.name;
+    if (availableColumns.includes('email')) insertData.email = formData.email;
+    if (availableColumns.includes('role')) insertData.role = formData.role;
+    
+    // Campos opcionais - só adiciona se a coluna existir
+    if (availableColumns.includes('cpf') && formData.cpf) {
+      insertData.cpf = formData.cpf;
+    }
+    if (availableColumns.includes('telefone') && formData.telefone) {
+      insertData.telefone = formData.telefone;
+    }
+    
+    // Campos alternativos (caso tenham nomes diferentes)
+    if (availableColumns.includes('phone') && formData.telefone && !availableColumns.includes('telefone')) {
+      insertData.phone = formData.telefone;
+    }
+    if (availableColumns.includes('uid_supabase') && !availableColumns.includes('id')) {
+      insertData.uid_supabase = authUserId;
+    }
+    
+    console.log('📦 [UserHelpers] Dados para insert:', {
+      insertData,
+      availableColumns,
+      fieldsIgnored: {
+        cpf: formData.cpf && !availableColumns.includes('cpf'),
+        telefone: formData.telefone && !availableColumns.includes('telefone')
+      }
+    });
+    
+    // Verifica se email já existe
+    console.log('🔍 [UserHelpers] Verificando se email já existe...');
+    const emailExists = await checkEmailExists(formData.email);
+    if (emailExists) {
+      console.log('⚠️ [UserHelpers] Email já existe no banco de dados');
+      throw new Error('Email já está cadastrado no sistema');
+    }
+    
+    // Executa o insert
+    console.log('🔄 [UserHelpers] Executando insert na tabela users...');
+    const { data, error } = await supabase
+      .from('users')
+      .insert([insertData])
+      .select();
+
+    if (error) {
+      console.error('❌ [UserHelpers] Erro ao inserir na tabela users:', {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        insertData
+      });
+      
+      throw new Error(`Erro ao inserir na tabela users: ${error.message}`);
+    }
+
+    console.log('✅ [UserHelpers] Usuário inserido com sucesso na tabela users:', data);
+    
+    // Se alguns campos não foram inseridos na tabela, salva no user_metadata
+    const ignoredFields: any = {};
+    if (formData.cpf && !availableColumns.includes('cpf')) {
+      ignoredFields.cpf = formData.cpf;
+    }
+    if (formData.telefone && !availableColumns.includes('telefone')) {
+      ignoredFields.telefone = formData.telefone;
+    }
+    
+    if (Object.keys(ignoredFields).length > 0) {
+      console.log('💾 [UserHelpers] Salvando campos adicionais no user_metadata:', ignoredFields);
+      try {
+        const { error: updateError } = await supabase.auth.updateUser({
+          data: {
+            ...ignoredFields,
+            profile_source: 'registration_form'
+          }
+        });
+        
+        if (updateError) {
+          console.warn('⚠️ [UserHelpers] Erro ao salvar no metadata:', updateError);
+        } else {
+          console.log('✅ [UserHelpers] Campos adicionais salvos no metadata');
+        }
+      } catch (metaError) {
+        console.warn('⚠️ [UserHelpers] Erro ao atualizar metadata:', metaError);
+      }
+    }
+    
+    return data[0];
+    
+  } catch (error) {
+    console.error('💥 [UserHelpers] Erro inesperado ao criar usuário:', error);
+    throw error;
+  }
+};
+
 /*
 COMO USAR NO SEU CÓDIGO:
 
-// No arquivo registerClient/index.tsx, após o signUp bem-sucedido:
+// No arquivo registerClient/index.tsx, substitua o insert manual por:
 
 if (authData.user) {
   try {
-    const userData = await createUserAfterAuth(authData.user.id, {
+    const userData = await createUserWithSchemaDiscovery(authData.user.id, {
       name: nome,
       email: email,
       role: role as string,
@@ -299,7 +432,7 @@ if (authData.user) {
     console.log('Usuário criado na tabela users:', userData);
   } catch (error) {
     console.error('Erro ao criar usuário na tabela:', error);
-    // Aqui você pode decidir se cancela o cadastro ou continua
+    // O usuário já foi criado no Auth, então não cancela o processo
   }
 }
 */

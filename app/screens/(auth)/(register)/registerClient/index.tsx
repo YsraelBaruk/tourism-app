@@ -1,5 +1,6 @@
 import { supabase } from "@/supabase";
 import { logger } from "@/utils/logger";
+import { createUserWithSchemaDiscovery } from "@/utils/userHelpers";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
@@ -93,23 +94,22 @@ function ClientRegister() {
 
     // 2. Se o usuário foi criado com sucesso no Auth, inserir na tabela users
     if (authData.user) {
-      const { data: userData, error: userError } = await supabase
-        .from('users')
-        .insert([
-          {
-            id: authData.user.id,
-            name: nome,
-            email: email,
-            role: role as string,
-            cpf: cpf,
-            telefone: telefone,
-          },
-        ])
-        .select();
-
-      console.log("Insert na tabela users:", { userData, userError });
-
-      if (userError) {
+      try {
+        console.log('🔄 [RegisterClient] Criando usuário na tabela users com função robusta...');
+        
+        const userData = await createUserWithSchemaDiscovery(authData.user.id, {
+          name: nome,
+          email: email,
+          role: role as string,
+          cpf: cpf,
+          telefone: telefone,
+        });
+        
+        console.log('✅ [RegisterClient] Usuário criado na tabela users:', userData);
+        
+      } catch (userError) {
+        console.error('❌ [RegisterClient] Erro ao criar usuário na tabela users:', userError);
+        
         logger.logRegistrationError({
           email,
           name: nome,
@@ -117,16 +117,38 @@ function ClientRegister() {
           cpf,
           telefone,
           userId: authData.user.id,
-          error: `Erro ao inserir na tabela users: ${userError.message}`,
+          error: `Erro ao inserir na tabela users: ${userError}`,
         });
-        console.warn("Erro ao inserir usuário na tabela users:", userError);
-        // Note: Não retornamos aqui pois o usuário já foi criado no Auth
-      } else {
-        console.log("Usuário inserido com sucesso na tabela users:", userData);
+        
+        // Tenta salvar pelo menos os dados básicos no user_metadata como fallback
+        console.log('🔄 [RegisterClient] Salvando dados no user_metadata como fallback...');
+        try {
+          const { error: updateError } = await supabase.auth.updateUser({
+            data: {
+              name: nome,
+              role: role as string,
+              cpf: cpf,
+              telefone: telefone,
+              profile_incomplete: true,
+              error_on_table_insert: true
+            }
+          });
+          
+          if (updateError) {
+            console.warn('⚠️ [RegisterClient] Também falhou ao atualizar metadata:', updateError);
+          } else {
+            console.log('✅ [RegisterClient] Dados salvos no user_metadata como fallback');
+          }
+        } catch (metaError) {
+          console.warn('⚠️ [RegisterClient] Erro ao salvar no metadata:', metaError);
+        }
+        
+        // Não retorna aqui pois o usuário já foi criado no Auth
       }
     }
 
     // Log de cadastro bem-sucedido
+    console.log('✅ [RegisterClient] Processo de cadastro concluído');
     logger.logUserRegistration({
       userId: authData.user?.id,
       email,

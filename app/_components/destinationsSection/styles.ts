@@ -6,7 +6,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: width * 0.05,
     paddingVertical: 25,
-    // flex: 1,
+  },
+  searchAndFilterContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  filterButton: {
+    padding: 5,
+    borderColor: '#2F5CDA',
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  destinationsRow: {
+    justifyContent: 'space-between',
   },
   destinationCardGradient: {
     flex: 1,

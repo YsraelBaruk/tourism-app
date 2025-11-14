@@ -1,12 +1,11 @@
 import { Funnel, Heart, MapPin } from 'lucide-react-native';
 
-import { useState } from 'react';
 import {
-    Image,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -18,11 +17,8 @@ import img2 from '@/assets/images/trips/image2.png';
 import img3 from '@/assets/images/trips/image3.png';
 import img4 from '@/assets/images/trips/image4.png';
 import Icon from '../IconMap';
-import FilterModal from '../filterModal';
 
 function DestinationsSection() {
-  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
-
   const destinations = [
     {
       name: 'Sítio do Carroção',
@@ -46,19 +42,6 @@ function DestinationsSection() {
     },
   ];
 
-  const handleFilterPress = () => {
-    setIsFilterModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsFilterModalVisible(false);
-  };
-
-  const handleApplyFilter = (filters: any) => {
-    console.log('Filtros aplicados:', filters);
-    // Aqui você pode implementar a lógica de filtros
-  };
-
   return (
     <View style={styles.destinationsSection}>
       <View style={styles.destinationsHeader}>
@@ -71,7 +54,7 @@ function DestinationsSection() {
               placeholderTextColor="#999"
             />
           </View>
-          <TouchableOpacity onPress={handleFilterPress}>
+          <TouchableOpacity>
             <View style={{padding: 5, borderColor: '#2F5CDA', borderWidth: 1, borderRadius: 10}}>
               <Icon name={Funnel} size={15} color='black' />
             </View>
@@ -110,12 +93,6 @@ function DestinationsSection() {
       <TouchableOpacity style={styles.seeMoreButton}>
         <Text style={styles.seeMoreText}>VER MAIS</Text>
       </TouchableOpacity>
-
-      <FilterModal
-        visible={isFilterModalVisible}
-        onClose={handleCloseModal}
-        onApplyFilter={handleApplyFilter}
-      />
     </View>
   );
 };
