@@ -2,12 +2,12 @@ import { useAuth } from '@/app/context/AuthContext';
 import { logger } from '@/utils/logger';
 import { useRouter } from 'expo-router';
 import {
-    Alert,
-    Image,
-    Modal,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  Image,
+  Modal,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
 import styles from './styles';
 
@@ -30,6 +30,7 @@ function ModalProfile({ visible, onClose, userName }: ModalProfileProps) {
           text: "Cancelar",
           style: "cancel",
           onPress: () => {
+            console.log('🚫 [ModalProfile] Logout cancelado pelo usuário');
             logger.log('LOGOUT_CANCELLED', 'info', {
               event_description: 'Usuário cancelou o logout',
             });
@@ -40,26 +41,71 @@ function ModalProfile({ visible, onClose, userName }: ModalProfileProps) {
           style: "destructive",
           onPress: async () => {
             try {
+              console.log('✅ [ModalProfile] Logout confirmado pelo usuário');
               logger.log('LOGOUT_CONFIRMED', 'info', {
                 event_description: 'Usuário confirmou o logout',
               });
 
+              console.log('🔄 [ModalProfile] Iniciando processo de logout...');
+              
               // Fecha o modal imediatamente
               onClose();
+              
+              console.log('🔄 [ModalProfile] Executando signOut...');
               
               // Executa logout
               await signOut();
               
-              // Força redirecionamento para login
-              setTimeout(() => {
+              console.log('✅ [ModalProfile] SignOut executado com sucesso');
+              
+              // Aguarda um pouco para garantir que o estado foi atualizado
+              console.log('🔄 [ModalProfile] Aguardando atualização do estado...');
+              await new Promise(resolve => setTimeout(resolve, 200));
+              
+              // Força redirecionamento para login com diferentes estratégias
+              console.log('🔄 [ModalProfile] Redirecionando para tela inicial...');
+              
+              try {
+                // Estratégia principal: replace
+                console.log('🔄 [ModalProfile] Tentativa 1: router.replace("/")');
                 router.replace('/');
-              }, 100);
+                
+                // Verificação com delay
+                setTimeout(() => {
+                  console.log('🔍 [ModalProfile] Verificando se redirecionamento funcionou...');
+                  console.log('📍 [ModalProfile] Tentativa de redirecionamento executada');
+                }, 300);
+                
+              } catch (replaceError) {
+                console.warn('⚠️ [ModalProfile] Erro no replace, tentando push:', replaceError);
+                
+                try {
+                  // Estratégia fallback: push
+                  console.log('🔄 [ModalProfile] Tentativa 2: router.push("/")');
+                  router.push('/');
+                } catch (pushError) {
+                  console.error('❌ [ModalProfile] Erro no push também:', pushError);
+                  
+                  // Última estratégia: dismiss todas as rotas
+                  setTimeout(() => {
+                    console.log('🔄 [ModalProfile] Tentativa 3: router.dismissAll + navigate');
+                    try {
+                      if (router.dismissAll) {
+                        router.dismissAll();
+                      }
+                      router.replace('/');
+                    } catch (finalError) {
+                      console.error('❌ [ModalProfile] Todas as estratégias falharam:', finalError);
+                    }
+                  }, 500);
+                }
+              }
               
             } catch (error) {
               logger.log('LOGOUT_UI_ERROR', 'error', {
                 error: `Erro na UI durante logout: ${error}`,
               });
-              console.error('Erro ao fazer logout:', error);
+              console.error('❌ [ModalProfile] Erro ao fazer logout:', error);
               Alert.alert('Erro', 'Não foi possível fazer logout. Tente novamente.');
             }
           }

@@ -22,42 +22,50 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   )
 }
 
-// Adapter que funciona tanto no mobile quanto no web
+// Adapter que funciona tanto no mobile quanto no web com logs para debug
 const ExpoSecureStoreAdapter = {
-  getItem: (key: string) => {
-    if (Platform.OS === 'web') {
-      // No web, use localStorage como fallback
-      try {
-        return Promise.resolve(localStorage.getItem(key));
-      } catch {
-        return Promise.resolve(null);
+  getItem: async (key: string) => {
+    try {
+      let value;
+      if (Platform.OS === 'web') {
+        // No web, use localStorage como fallback
+        value = localStorage.getItem(key);
+        console.log('🔍 [Supabase] getItem (web):', { key, hasValue: !!value });
+      } else {
+        value = await SecureStore.getItemAsync(key);
+        console.log('🔍 [Supabase] getItem (mobile):', { key, hasValue: !!value });
       }
+      return value;
+    } catch (error) {
+      console.warn('⚠️ [Supabase] Erro no getItem:', { key, error });
+      return null;
     }
-    return SecureStore.getItemAsync(key);
   },
-  setItem: (key: string, value: string) => {
-    if (Platform.OS === 'web') {
-      // No web, use localStorage como fallback
-      try {
+  setItem: async (key: string, value: string) => {
+    try {
+      if (Platform.OS === 'web') {
         localStorage.setItem(key, value);
-        return Promise.resolve();
-      } catch {
-        return Promise.resolve();
+        console.log('💾 [Supabase] setItem (web):', { key, valueLength: value?.length });
+      } else {
+        await SecureStore.setItemAsync(key, value);
+        console.log('💾 [Supabase] setItem (mobile):', { key, valueLength: value?.length });
       }
+    } catch (error) {
+      console.warn('⚠️ [Supabase] Erro no setItem:', { key, error });
     }
-    return SecureStore.setItemAsync(key, value);
   },
-  removeItem: (key: string) => {
-    if (Platform.OS === 'web') {
-      // No web, use localStorage como fallback
-      try {
+  removeItem: async (key: string) => {
+    try {
+      if (Platform.OS === 'web') {
         localStorage.removeItem(key);
-        return Promise.resolve();
-      } catch {
-        return Promise.resolve();
+        console.log('🗑️ [Supabase] removeItem (web):', { key });
+      } else {
+        await SecureStore.deleteItemAsync(key);
+        console.log('🗑️ [Supabase] removeItem (mobile):', { key });
       }
+    } catch (error) {
+      console.warn('⚠️ [Supabase] Erro no removeItem:', { key, error });
     }
-    return SecureStore.deleteItemAsync(key);
   },
 }
 
@@ -67,5 +75,17 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false,
+    // Garante que o logout seja mais efetivo
+    flowType: 'pkce',
+    // Debug habilitado para investigar problemas
+    debug: __DEV__,
   },
 })
+
+// Log da inicialização para debug
+console.log('🚀 [Supabase] Cliente inicializado:', {
+  url: SUPABASE_URL,
+  platform: Platform.OS,
+  hasKey: !!SUPABASE_ANON_KEY,
+  isDev: __DEV__
+});
