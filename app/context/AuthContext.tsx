@@ -1,4 +1,5 @@
 import { supabase } from '@/supabase';
+import { logger } from '@/utils/logger';
 import { Session, User } from '@supabase/supabase-js';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
@@ -25,11 +26,42 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signOut = async () => {
     try {
-      await supabase.auth.signOut();
+      // Log da tentativa de logout
+      logger.log('LOGOUT_ATTEMPT', 'info', {
+        userId: user?.id,
+        email: user?.email,
+        event_description: 'Usuário iniciando processo de logout',
+      });
+
+      // Executa logout no Supabase
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        logger.log('LOGOUT_ERROR', 'error', {
+          userId: user?.id,
+          email: user?.email,
+          error: `Supabase logout error: ${error.message}`,
+        });
+        throw error;
+      }
+
       // Limpa o estado local imediatamente
       setUser(null);
       setSession(null);
+
+      // Log de logout bem-sucedido
+      logger.log('LOGOUT_SUCCESS', 'info', {
+        userId: user?.id,
+        email: user?.email,
+        event_description: 'Logout realizado com sucesso',
+      });
+
     } catch (error) {
+      logger.log('LOGOUT_ERROR', 'error', {
+        userId: user?.id,
+        email: user?.email,
+        error: `Erro inesperado no logout: ${error}`,
+      });
       console.error('Erro ao fazer logout:', error);
       throw error;
     }
@@ -45,7 +77,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Escuta mudanças no estado de autenticação (login, logout)
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      (event, session) => {
+        logger.log('AUTH_STATE_CHANGE', 'info', {
+          event,
+          userId: session?.user?.id,
+          email: session?.user?.email,
+          event_description: `Estado de autenticação mudou: ${event}`,
+        });
+
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);

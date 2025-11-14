@@ -1,4 +1,5 @@
 import { useAuth } from '@/app/context/AuthContext';
+import { logger } from '@/utils/logger';
 import { useRouter } from 'expo-router';
 import {
     Alert,
@@ -27,18 +28,37 @@ function ModalProfile({ visible, onClose, userName }: ModalProfileProps) {
       [
         {
           text: "Cancelar",
-          style: "cancel"
+          style: "cancel",
+          onPress: () => {
+            logger.log('LOGOUT_CANCELLED', 'info', {
+              event_description: 'Usuário cancelou o logout',
+            });
+          }
         },
         {
           text: "Sair",
           style: "destructive",
           onPress: async () => {
             try {
-              await signOut();
+              logger.log('LOGOUT_CONFIRMED', 'info', {
+                event_description: 'Usuário confirmou o logout',
+              });
+
+              // Fecha o modal imediatamente
               onClose();
-              // Redireciona para a tela de login
-              router.replace('/');
+              
+              // Executa logout
+              await signOut();
+              
+              // Força redirecionamento para login
+              setTimeout(() => {
+                router.replace('/');
+              }, 100);
+              
             } catch (error) {
+              logger.log('LOGOUT_UI_ERROR', 'error', {
+                error: `Erro na UI durante logout: ${error}`,
+              });
               console.error('Erro ao fazer logout:', error);
               Alert.alert('Erro', 'Não foi possível fazer logout. Tente novamente.');
             }
