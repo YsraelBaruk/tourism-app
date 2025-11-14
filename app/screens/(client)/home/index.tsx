@@ -3,8 +3,7 @@ import {
   RefreshControl,
   ScrollView,
   StatusBar,
-  StyleSheet,
-  View
+  StyleSheet
 } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -31,6 +30,22 @@ function Home() {
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={true}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={['#2F5CDA', '#4A90E2']}
+            tintColor={'#2F5CDA'}
+            title="Atualizando..."
+            titleColor={'#2F5CDA'}
+          />
+        }
+        bounces={true}
+        bouncesZoom={false}
+        alwaysBounceVertical={true}
+        scrollEventThrottle={16}
+        keyboardShouldPersistTaps="handled"
+        removeClippedSubviews={false}
       >
         <HeaderHome />
         <ExploreSection />
@@ -51,7 +66,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20, // Espaço extra no final para melhor experiência
   },
   scrollView: {
-    flex: 1,
+    height: '100%',
     backgroundColor: 'transparent',
   },
 }); 
