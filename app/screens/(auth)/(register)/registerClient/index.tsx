@@ -68,17 +68,15 @@ function ClientRegister() {
         options: {
           data: {
             // Estes dados vão para 'raw_user_meta_data'
-            // O gatilho da Fase 2 usará isso
             name: nome,
             role: role, // 'usuario_comum'
-            // Você pode adicionar cpf e telefone aqui também se quiser
             cpf: cpf,
             telefone: telefone,
           }
         }
       });
 
-    console.log("Resposta do Supabase:", { authData, authError });
+      console.log("Resposta do Supabase Auth:", { authData, authError });
 
     if (authError) {
       logger.logRegistrationError({
@@ -91,6 +89,41 @@ function ClientRegister() {
       });
       Alert.alert("Erro no cadastro", authError.message);
       return;
+    }
+
+    // 2. Se o usuário foi criado com sucesso no Auth, inserir na tabela users
+    if (authData.user) {
+      const { data: userData, error: userError } = await supabase
+        .from('users')
+        .insert([
+          {
+            id: authData.user.id,
+            name: nome,
+            email: email,
+            role: role as string,
+            cpf: cpf,
+            telefone: telefone,
+          },
+        ])
+        .select();
+
+      console.log("Insert na tabela users:", { userData, userError });
+
+      if (userError) {
+        logger.logRegistrationError({
+          email,
+          name: nome,
+          role: role as string,
+          cpf,
+          telefone,
+          userId: authData.user.id,
+          error: `Erro ao inserir na tabela users: ${userError.message}`,
+        });
+        console.warn("Erro ao inserir usuário na tabela users:", userError);
+        // Note: Não retornamos aqui pois o usuário já foi criado no Auth
+      } else {
+        console.log("Usuário inserido com sucesso na tabela users:", userData);
+      }
     }
 
     // Log de cadastro bem-sucedido

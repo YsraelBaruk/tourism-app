@@ -48,26 +48,6 @@ Após executar os scripts, você pode testar:
 3. **Trigger**: Automaticamente executa quando um novo registro é inserido em `auth.users`
 4. **Criação**: Usuário é criado na tabela `public.users` com todos os dados
 
-## 🔐 Segurança (RLS)
-
-A tabela possui Row Level Security (RLS) ativado com as seguintes políticas:
-
-- **SELECT**: Usuários podem ver apenas seus próprios dados
-- **UPDATE**: Usuários podem atualizar apenas seus próprios dados  
-- **INSERT**: Permitido para service role (usado pelo trigger)
-
-## 🔄 Mapeamento de Dados
-
-O trigger mapeia os dados da seguinte forma:
-
-```sql
-auth.users.raw_user_meta_data->>'name' → public.users.name
-auth.users.email → public.users.email
-auth.users.raw_user_meta_data->>'role' → public.users.role
-auth.users.raw_user_meta_data->>'cpf' → public.users.cpf
-auth.users.raw_user_meta_data->>'telefone' → public.users.telefone
-```
-
 ## 🐛 Troubleshooting
 
 ### Erro de Permissão
